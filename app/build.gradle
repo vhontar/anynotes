@@ -1,23 +1,27 @@
+import dependencies.Application
+import dependencies.Versions
+import dependencies.Java
+import dependencies.Dependencies
+import dependencies.SupportDependencies
+import dependencies.AndroidTestDependencies
+import dependencies.AnnotationProcessing
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+apply plugin: "org.jetbrains.kotlin.plugin.parcelize"
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion Versions.INSTANCE.compileSdk
     defaultConfig {
-        applicationId "com.codingwithmitch.cleannotes"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId Application.INSTANCE.id
+        minSdkVersion Versions.INSTANCE.minSdk
+        targetSdkVersion Versions.INSTANCE.targetSdk
+        versionCode Application.INSTANCE.versionCode
+        versionName Application.INSTANCE.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner AndroidTestDependencies.INSTANCE.instrumentation_runner
     }
     buildTypes {
         debug {
@@ -29,12 +33,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
+        sourceCompatibility = Java.INSTANCE.javaVersion
+        targetCompatibility = Java.INSTANCE.javaVersion
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Java.INSTANCE.javaVersion
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -43,14 +51,28 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.61"
-    implementation "androidx.core:core-ktx:1.2.0"
+    implementation Dependencies.INSTANCE.kotlin_standard_library
+    implementation Dependencies.INSTANCE.kotlin_reflect
+    implementation Dependencies.INSTANCE.ktx
+    // coroutines
+    implementation Dependencies.INSTANCE.kotlin_coroutines
+    implementation Dependencies.INSTANCE.kotlin_coroutines_android
+    implementation Dependencies.INSTANCE.kotlin_coroutines_play_services
 
     // Support
-    implementation "androidx.appcompat:appcompat:1.1.0-rc01"
-    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
-    implementation "com.google.android.material:material:1.1.0"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
+    implementation SupportDependencies.INSTANCE.appcompat
+    implementation SupportDependencies.INSTANCE.constraintlayout
+    implementation SupportDependencies.INSTANCE.material_design
+    implementation SupportDependencies.INSTANCE.swipe_refresh_layout
 
+
+    // dependencies
+    implementation Dependencies.INSTANCE.dagger
+    implementation Dependencies.INSTANCE.firebase_firestore
+    implementation Dependencies.INSTANCE.firebase_auth
+    implementation Dependencies.INSTANCE.firebase_analytics
+    implementation Dependencies.INSTANCE.firebase_crashlytics
+
+    // annotation processing
+    implementation AnnotationProcessing.INSTANCE.dagger_compiler
 }
