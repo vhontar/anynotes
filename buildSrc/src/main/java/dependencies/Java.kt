@@ -1,5 +1,5 @@
 package dependencies
 
 object Java {
-    const val javaVersion = "1.8"
+    val javaVersion = "1.8"
 }

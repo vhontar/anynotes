@@ -1,7 +1,7 @@
 package dependencies
 
 object Application {
-    const val id = "com.vhontar.notes"
-    const val versionCode = 1
-    const val versionName = "1.0"
+    val id = "com.vhontar.notes"
+    val versionCode = 1
+    val versionName = "1.0"
 }

@@ -1,4 +1,5 @@
 import dependencies.Application
+import dependencies.TestDependencies
 import dependencies.Versions
 import dependencies.Java
 import dependencies.Dependencies
@@ -44,6 +45,16 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    sourceSets {
+        test.resources.srcDirs += "src/test/res"
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 
@@ -59,6 +70,10 @@ dependencies {
     implementation Dependencies.INSTANCE.kotlin_coroutines_android
     implementation Dependencies.INSTANCE.kotlin_coroutines_play_services
 
+    // Network retrofit
+    implementation Dependencies.INSTANCE.retrofit
+    implementation Dependencies.INSTANCE.retrofit_gson
+
     // Support
     implementation SupportDependencies.INSTANCE.appcompat
     implementation SupportDependencies.INSTANCE.constraintlayout
@@ -72,7 +87,17 @@ dependencies {
     implementation Dependencies.INSTANCE.firebase_auth
     implementation Dependencies.INSTANCE.firebase_analytics
     implementation Dependencies.INSTANCE.firebase_crashlytics
+    //implementation Dependencies.markdown_processor
 
     // annotation processing
     implementation AnnotationProcessing.INSTANCE.dagger_compiler
+
+    // unit tests
+    testImplementation TestDependencies.INSTANCE.mockk
+    testImplementation TestDependencies.INSTANCE.jupiter_api
+    testImplementation TestDependencies.INSTANCE.jupiter_params
+    testImplementation TestDependencies.INSTANCE.junit4
+    testImplementation Dependencies.INSTANCE.retrofit_gson
+    testRuntimeOnly TestDependencies.INSTANCE.jupiter_engine
+
 }
