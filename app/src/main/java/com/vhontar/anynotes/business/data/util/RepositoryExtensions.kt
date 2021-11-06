@@ -6,6 +6,7 @@ import com.vhontar.anynotes.business.data.cache.CacheResult
 import com.vhontar.anynotes.business.data.network.NetworkConstants
 import com.vhontar.anynotes.business.data.network.NetworkErrors
 import com.vhontar.anynotes.business.data.network.NetworkResult
+import com.vhontar.anynotes.util.sendCrashlytics
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -27,6 +28,7 @@ suspend fun <T> safeNetworkCall(
                 NetworkResult.Success(apiCall.invoke())
             }
         } catch (throwable: Throwable) {
+            sendCrashlytics(throwable.message)
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {
@@ -66,6 +68,7 @@ suspend fun <T> safeCacheCall(
                 CacheResult.Success(cacheCall.invoke())
             }
         } catch (throwable: Throwable) {
+            sendCrashlytics(throwable.message)
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {
