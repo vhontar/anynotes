@@ -11,6 +11,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jetbrains.kotlin.plugin.parcelize"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
@@ -80,6 +82,16 @@ dependencies {
     implementation SupportDependencies.INSTANCE.material_design
     implementation SupportDependencies.INSTANCE.swipe_refresh_layout
 
+    // Room library
+    implementation Dependencies.INSTANCE.room_ktx
+    implementation Dependencies.INSTANCE.room_runtime
+
+    // Firebase
+    implementation platform(Dependencies.INSTANCE.firebase_bom)
+    implementation Dependencies.INSTANCE.firebase_firestore
+    implementation Dependencies.INSTANCE.firebase_auth
+    implementation Dependencies.INSTANCE.firebase_crashlytics
+    implementation Dependencies.INSTANCE.firebase_analytics
 
     // dependencies
     implementation Dependencies.INSTANCE.dagger
@@ -91,6 +103,7 @@ dependencies {
 
     // annotation processing
     implementation AnnotationProcessing.INSTANCE.dagger_compiler
+    implementation AnnotationProcessing.INSTANCE.room_compiler
 
     // unit tests
     testImplementation TestDependencies.INSTANCE.mockk

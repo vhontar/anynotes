@@ -1,7 +1,7 @@
 package com.vhontar.anynotes.framework.datasource.cache.abstraction
 
 import com.vhontar.anynotes.business.domain.model.Note
-import com.vhontar.anynotes.framework.datasource.database.NoteDao
+import com.vhontar.anynotes.framework.datasource.cache.database.NOTE_PAGINATION_PAGE_SIZE
 
 interface NoteDaoService {
     suspend fun insertNote(note: Note): Long
@@ -19,22 +19,22 @@ interface NoteDaoService {
     suspend fun searchNotesOrderByDateDESC(
         query: String,
         page: Int,
-        pageSize: Int = NoteDao.NOTE_PAGINATION_PAGE_SIZE
+        pageSize: Int = NOTE_PAGINATION_PAGE_SIZE
     ): List<Note>
     suspend fun searchNotesOrderByDateASC(
         query: String,
         page: Int,
-        pageSize: Int = NoteDao.NOTE_PAGINATION_PAGE_SIZE
+        pageSize: Int = NOTE_PAGINATION_PAGE_SIZE
     ): List<Note>
     suspend fun searchNotesOrderByTitleDESC(
         query: String,
         page: Int,
-        pageSize: Int = NoteDao.NOTE_PAGINATION_PAGE_SIZE
+        pageSize: Int = NOTE_PAGINATION_PAGE_SIZE
     ): List<Note>
     suspend fun searchNotesOrderByTitleASC(
         query: String,
         page: Int,
-        pageSize: Int = NoteDao.NOTE_PAGINATION_PAGE_SIZE
+        pageSize: Int = NOTE_PAGINATION_PAGE_SIZE
     ): List<Note>
     suspend fun getNumNotes(): Int
     suspend fun returnOrderedQuery(

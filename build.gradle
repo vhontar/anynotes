@@ -11,6 +11,8 @@ buildscript {
     dependencies {
         classpath Build.INSTANCE.build_tools
         classpath Build.INSTANCE.kotlin_gradle_plugin
+        classpath Build.INSTANCE.google_services
+        classpath Build.INSTANCE.crashlytics_gradle
     }
 }
 

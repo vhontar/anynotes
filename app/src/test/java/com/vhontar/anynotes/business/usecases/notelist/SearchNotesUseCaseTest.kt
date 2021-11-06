@@ -6,7 +6,8 @@ import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.model.NoteFactory
 import com.vhontar.anynotes.di.DependenciesContainer
-import com.vhontar.anynotes.framework.datasource.database.NoteDao
+import com.vhontar.anynotes.framework.datasource.cache.database.NoteDao
+import com.vhontar.anynotes.framework.datasource.cache.database.ORDER_BY_ASC_DATE_UPDATED
 import com.vhontar.anynotes.framework.presentation.notelist.state.NoteListStateEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
@@ -56,7 +57,7 @@ class SearchNotesUseCaseTest {
         var results: List<Note>? = null
         searchNotesUseCase.searchNotes(
             query = query,
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1,
             stateEvent = NoteListStateEvent.SearchNotesEvent()
         ).collect {
@@ -76,7 +77,7 @@ class SearchNotesUseCaseTest {
         // confirm that cache result is the same
         val notesInCache = noteCacheDataSource.searchNotes(
             query = query,
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1
         )
         assertTrue {
@@ -90,7 +91,7 @@ class SearchNotesUseCaseTest {
         var results: List<Note>? = null
         searchNotesUseCase.searchNotes(
             query = query,
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1,
             stateEvent = NoteListStateEvent.SearchNotesEvent()
         ).collect {
@@ -109,7 +110,7 @@ class SearchNotesUseCaseTest {
         // confirm there is notes in the cache
         val notesInCache = noteCacheDataSource.searchNotes(
             query = "",
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1
         )
         assertTrue {
@@ -124,7 +125,7 @@ class SearchNotesUseCaseTest {
 
         searchNotesUseCase.searchNotes(
             query = query,
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1,
             stateEvent = NoteListStateEvent.SearchNotesEvent()
         ).collect {
@@ -143,7 +144,7 @@ class SearchNotesUseCaseTest {
         // confirm there is notes in the cache
         val notesInCache = noteCacheDataSource.searchNotes(
             query = "",
-            filterAndOrder = NoteDao.ORDER_BY_ASC_DATE_UPDATED,
+            filterAndOrder = ORDER_BY_ASC_DATE_UPDATED,
             page = 1
         )
         assertTrue {

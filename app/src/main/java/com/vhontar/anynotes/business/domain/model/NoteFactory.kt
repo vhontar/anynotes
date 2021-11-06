@@ -2,13 +2,10 @@ package com.vhontar.anynotes.business.domain.model
 
 import com.vhontar.anynotes.business.domain.util.DateUtil
 import java.util.*
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NoteFactory @Inject constructor(
-    private val dateUtil: DateUtil
-) {
+class NoteFactory {
     fun createSingleNote(
         id: String? = null,
         title: String,
@@ -18,8 +15,8 @@ class NoteFactory @Inject constructor(
             id = id ?: UUID.randomUUID().toString(),
             title = title,
             body = body ?: "",
-            updatedAt = dateUtil.getCurrentTimestamp(),
-            createdAt = dateUtil.getCurrentTimestamp()
+            updatedAt = DateUtil.getCurrentTimestamp(),
+            createdAt = DateUtil.getCurrentTimestamp()
         )
     }
 

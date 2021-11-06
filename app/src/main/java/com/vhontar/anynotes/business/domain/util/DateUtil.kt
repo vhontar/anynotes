@@ -6,10 +6,9 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class DateUtil @Inject constructor(
-    private val dateFormat: SimpleDateFormat
-) {
+object DateUtil {
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.ENGLISH)
+
     fun removeTimeFromDateString(sd: String): String {
         return sd.substring(0, sd.indexOf(""))
     }

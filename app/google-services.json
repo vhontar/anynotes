@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "21375971207",
+    "project_id": "anynotes-4fa0a",
+    "storage_bucket": "anynotes-4fa0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21375971207:android:0484ba8f05d9bdefcd2d22",
+        "android_client_info": {
+          "package_name": "com.vhontar.anynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21375971207-r4j02tog5fdiesk8a6hn4erjeaem836f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC41VINPk-RKNhejIFlfvkpxdmgqv7q5hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21375971207-r4j02tog5fdiesk8a6hn4erjeaem836f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

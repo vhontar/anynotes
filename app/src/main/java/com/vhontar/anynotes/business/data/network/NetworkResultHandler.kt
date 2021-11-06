@@ -3,11 +3,11 @@ package com.vhontar.anynotes.business.data.network
 import com.vhontar.anynotes.business.data.ResponseHandler
 import com.vhontar.anynotes.business.domain.state.*
 
-abstract class NetworkResultHandler<ViewState, Data>(
-    private val result: NetworkResult<Data?>,
+abstract class NetworkResultHandler<T, V>(
+    private val result: NetworkResult<V?>,
     private val stateEvent: StateEvent?
-) : ResponseHandler<ViewState, Data> {
-    override fun getResult(): DataState<ViewState>? {
+) : ResponseHandler<T, V> {
+    override fun getResult(): DataState<T>? {
         return when (result) {
             is NetworkResult.GenericError -> {
                 DataState.error(

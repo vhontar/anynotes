@@ -3,7 +3,7 @@ package com.vhontar.anynotes.business.data.cache
 import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.util.DateUtil
-import com.vhontar.anynotes.framework.datasource.database.NoteDao
+import com.vhontar.anynotes.framework.datasource.cache.database.NOTE_PAGINATION_PAGE_SIZE
 
 const val FORCE_DELETE_NOTE_EXCEPTION = "FORCE_DELETE_NOTE_EXCEPTION"
 const val FORCE_DELETES_NOTE_EXCEPTION = "FORCE_DELETES_NOTE_EXCEPTION"
@@ -13,8 +13,7 @@ const val FORCE_SEARCH_NOTES_EXCEPTION = "FORCE_SEARCH_NOTES_EXCEPTION"
 const val FORCE_GENERAL_FAILURE = "FORCE_GENERAL_FAILURE"
 
 class FakeNoteCacheDataSourceImpl constructor(
-    private val notesData: HashMap<String, Note>,
-    private val dateUtil: DateUtil
+    private val notesData: HashMap<String, Note>
 ) : NoteCacheDataSource {
 
     override suspend fun insertNote(note: Note): Long {
@@ -61,8 +60,8 @@ class FakeNoteCacheDataSourceImpl constructor(
             id = primaryKey,
             title = newTitle,
             body = newBody ?: "",
-            updatedAt = dateUtil.getCurrentTimestamp(),
-            createdAt = notesData[primaryKey]?.createdAt ?: dateUtil.getCurrentTimestamp()
+            updatedAt = DateUtil.getCurrentTimestamp(),
+            createdAt = notesData[primaryKey]?.createdAt ?: DateUtil.getCurrentTimestamp()
         )
         return notesData[primaryKey]?.let {
             notesData[primaryKey] = updatedNote
@@ -88,7 +87,7 @@ class FakeNoteCacheDataSourceImpl constructor(
             } else if (note.body.contains(query)) {
                 results.add(note)
             }
-            if (results.size > (page * NoteDao.NOTE_PAGINATION_PAGE_SIZE)) {
+            if (results.size > (page * NOTE_PAGINATION_PAGE_SIZE)) {
                 break
             }
         }
