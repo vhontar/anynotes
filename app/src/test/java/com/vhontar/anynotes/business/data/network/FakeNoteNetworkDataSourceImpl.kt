@@ -2,6 +2,7 @@ package com.vhontar.anynotes.business.data.network
 
 import com.vhontar.anynotes.business.data.network.abstraction.NoteNetworkDataSource
 import com.vhontar.anynotes.business.domain.model.Note
+import com.vhontar.anynotes.business.domain.util.DateUtil
 
 class FakeNoteNetworkDataSourceImpl constructor(
     private val notesData: HashMap<String, Note>,
@@ -9,7 +10,14 @@ class FakeNoteNetworkDataSourceImpl constructor(
 ) : NoteNetworkDataSource {
 
     override suspend fun insertOrUpdateNote(note: Note) {
-        notesData[note.id] = note
+        val newNote = Note(
+            id = note.id,
+            title = note.title,
+            body = note.body,
+            createdAt = note.createdAt,
+            updatedAt = DateUtil.getCurrentTimestamp()
+        )
+        notesData[note.id] = newNote 
     }
 
     override suspend fun deleteNote(primaryKey: String) {

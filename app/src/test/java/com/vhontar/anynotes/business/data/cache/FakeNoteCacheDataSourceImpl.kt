@@ -51,7 +51,8 @@ class FakeNoteCacheDataSourceImpl constructor(
     override suspend fun updateNote(
         primaryKey: String,
         newTitle: String,
-        newBody: String?
+        newBody: String?,
+        timestamp: String?
     ): Long {
         if (primaryKey == FORCE_UPDATE_NOTE_EXCEPTION) {
             throw Exception("Something went wrong updating the note.")
@@ -60,7 +61,7 @@ class FakeNoteCacheDataSourceImpl constructor(
             id = primaryKey,
             title = newTitle,
             body = newBody ?: "",
-            updatedAt = DateUtil.getCurrentTimestamp(),
+            updatedAt = timestamp ?: DateUtil.getCurrentTimestamp(),
             createdAt = notesData[primaryKey]?.createdAt ?: DateUtil.getCurrentTimestamp()
         )
         return notesData[primaryKey]?.let {

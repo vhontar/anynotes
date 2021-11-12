@@ -99,10 +99,11 @@ class SyncNotesUseCase(
                 noteCacheDataSource.updateNote(
                     primaryKey = networkNote.id,
                     newTitle = networkNote.title,
-                    newBody = networkNote.body
+                    newBody = networkNote.body,
+                    timestamp = networkNote.updatedAt
                 )
             }
-        } else {
+        } else if (networkNote.updatedAt < cacheNote.updatedAt) {
             safeNetworkCall(IO) {
                 noteNetworkDataSource.insertOrUpdateNote(cacheNote)
             }

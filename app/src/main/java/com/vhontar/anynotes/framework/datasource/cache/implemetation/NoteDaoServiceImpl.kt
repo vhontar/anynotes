@@ -14,14 +14,18 @@ import javax.inject.Singleton
 
 @Singleton
 class NoteDaoServiceImpl @Inject constructor(
-    private val noteDao: NoteDao,
-    private val dateUtil: DateUtil
+    private val noteDao: NoteDao
 ): NoteDaoService {
     override suspend fun insertNote(note: Note): Long = noteDao.insertNote(note.toDatabaseEntity())
     override suspend fun insertNotes(notes: List<Note>): LongArray = noteDao.insertNotes(notes.toDatabaseEntities())
     override suspend fun searchNoteById(id: String): Note? = noteDao.searchNoteById(id)?.toDomainModel()
-    override suspend fun updateNote(primaryKey: String, title: String, body: String?): Long =
-        noteDao.updateNote(primaryKey, title, body, dateUtil.getCurrentTimestamp())
+    override suspend fun updateNote(primaryKey: String, title: String, body: String?, timestamp: String?): Long {
+        return if (timestamp == null) {
+            noteDao.updateNote(primaryKey, title, body, DateUtil.getCurrentTimestamp())
+        } else {
+            noteDao.updateNote(primaryKey, title, body, timestamp)
+        }
+    }
     override suspend fun deleteNote(primaryKey: String): Int = noteDao.deleteNote(primaryKey)
     override suspend fun deleteNotes(notes: List<Note>): Int = noteDao.deleteNotes(notes.map { it.id })
     override suspend fun searchNotes(): List<Note> = noteDao.getAllNotes().toDomainModels()

@@ -2,11 +2,13 @@ package com.vhontar.anynotes.business.usecases.splash
 
 import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.data.network.abstraction.NoteNetworkDataSource
+import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.model.NoteFactory
+import com.vhontar.anynotes.business.domain.util.DateUtil
 import com.vhontar.anynotes.di.DependenciesContainer
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -48,6 +50,67 @@ class SyncNotesUseCaseTest {
             noteCacheDataSource = noteCacheDataSource,
             noteNetworkDataSource = noteNetworkDataSource
         )
+    }
+
+    @Test
+    fun doSuccessiveUpdatesOccur() = runBlocking {
+
+        // update a single note with new timestamp
+        val newDate = DateUtil.getCurrentTimestamp()
+        val selectedNote = noteNetworkDataSource.getAllNotes()[0]
+        val updatedNote = Note(
+            id = selectedNote.id,
+            title = selectedNote.title,
+            body = selectedNote.body,
+            createdAt = selectedNote.createdAt,
+            updatedAt = newDate
+        )
+        noteNetworkDataSource.insertOrUpdateNote(updatedNote)
+
+        syncNotesUseCase.syncNotes()
+
+        delay(1001)
+
+        // simulate launch app again
+        syncNotesUseCase.syncNotes()
+
+        // confirm the date was not updated a second time
+        val notes = noteNetworkDataSource.getAllNotes()
+        notes.forEach { note ->
+            if(note.id == updatedNote.id){
+                assertTrue { note.updatedAt == newDate }
+            }
+        }
+    }
+
+    @Test
+    fun checkUpdatedAtDates() = runBlocking {
+        // update a single note with new timestamp
+        val newDate = DateUtil.getCurrentTimestamp()
+        val selectedNote = noteNetworkDataSource.getAllNotes()[0]
+        val updatedNote = Note(
+            id = selectedNote.id,
+            title = selectedNote.title,
+            body = selectedNote.body,
+            createdAt = selectedNote.createdAt,
+            updatedAt = newDate
+        )
+        noteNetworkDataSource.insertOrUpdateNote(updatedNote)
+
+        syncNotesUseCase.syncNotes()
+
+        // confirm only a single 'updated_at' date was updated
+        val notes = noteNetworkDataSource.getAllNotes()
+        notes.forEach { note ->
+            noteCacheDataSource.searchNoteById(note.id)?.let { n ->
+                println("date: ${n.updatedAt}")
+                if (n.id == updatedNote.id) {
+                    assertTrue { n.updatedAt == newDate }
+                } else {
+                    assertFalse { n.updatedAt == newDate }
+                }
+            }
+        }
     }
 
     @Test
