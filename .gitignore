@@ -15,3 +15,4 @@
 .idea/*
 buildSrc/build/*
 *.log
+*.hprof

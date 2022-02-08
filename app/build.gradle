@@ -15,6 +15,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
+apply plugin: 'kotlin-android'
 
 
 android {
@@ -139,4 +140,9 @@ dependencies {
     androidTestImplementation AndroidTestDependencies.INSTANCE.navigation_testing
     debugImplementation AndroidTestDependencies.INSTANCE.fragment_testing
     kaptAndroidTest  AnnotationProcessing.INSTANCE.dagger_compiler
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
