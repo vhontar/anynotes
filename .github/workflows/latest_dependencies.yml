@@ -1,4 +1,4 @@
-name: Build passed
+name: Latest dependencies
 
 on:
   push:
@@ -16,8 +16,5 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Run all tests
-        run: ./scripts/run_all_tests.sh
-
-      - name: Build project
-        run: ./gradlew assemble
+      - name: Latest dependencies
+        run: ./gradlew dependencyUpdates
