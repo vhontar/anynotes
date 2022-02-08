@@ -1,4 +1,4 @@
-name: Android Build (Lint, Tests, Assemble)
+name: Android Build (Tests, Assemble, Check Latest Dependencies)
 
 on:
   push:
@@ -20,4 +20,7 @@ jobs:
         run: ./gradlew test
 
       - name: Build project
-        run: ./gradlew assebmle
+        run: ./gradlew assemble
+
+      - name: Check latest dependencies
+        run: ./gradlew dependencyUpdates
