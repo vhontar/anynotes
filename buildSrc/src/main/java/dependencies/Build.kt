@@ -6,4 +6,5 @@ object Build {
     val google_services = "com.google.gms:google-services:${Versions.play_services}"
     val junit5 = "de.mannodermaus.gradle.plugins:android-junit5:1.3.2.0"
     val crashlytics_gradle = "com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlytics_gradle}"
+    val gradle_versions_plugin = "com.github.ben-manes:gradle-versions-plugin:${Versions.gradle_versions_plugin}"
 }

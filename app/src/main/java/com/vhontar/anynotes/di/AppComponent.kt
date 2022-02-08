@@ -1,7 +1,7 @@
 package com.vhontar.anynotes.di
 
-import com.vhontar.anynotes.framework.presentation.BaseApplication
-import com.vhontar.anynotes.framework.presentation.MainActivity
+import com.vhontar.anynotes.presentation.BaseApplication
+import com.vhontar.anynotes.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.FlowPreview
@@ -12,7 +12,9 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        ProductionModule::class
+        ProductionModule::class,
+        NoteViewModelModule::class,
+        NoteFragmentFactoryModule::class
     ]
 )
 interface AppComponent {

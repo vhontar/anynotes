@@ -1,7 +1,8 @@
 package com.vhontar.anynotes.di
 
-import com.vhontar.anynotes.framework.datasource.network.NoteFirestoreServiceTests
-import com.vhontar.anynotes.framework.presentation.TestBaseApplication
+import com.vhontar.anynotes.datasource.cache.NoteDaoServiceTests
+import com.vhontar.anynotes.datasource.network.NoteFirestoreServiceTests
+import com.vhontar.anynotes.presentation.TestBaseApplication
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.FlowPreview
@@ -22,4 +23,5 @@ interface TestAppComponent : AppComponent {
     }
 
     fun inject(noteFirestoreServiceTests: NoteFirestoreServiceTests)
+    fun inject(noteDaoServiceTests: NoteDaoServiceTests)
 }

@@ -1,13 +1,12 @@
 package com.vhontar.anynotes.di
 
-import android.app.Application
 import androidx.room.Room
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.vhontar.anynotes.business.domain.model.NoteFactory
-import com.vhontar.anynotes.framework.datasource.cache.database.NoteDatabase
-import com.vhontar.anynotes.framework.datasource.data.NoteDataFactory
-import com.vhontar.anynotes.framework.presentation.TestBaseApplication
+import com.vhontar.anynotes.datasource.cache.database.NoteDatabase
+import com.vhontar.anynotes.datasource.data.NoteDataFactory
+import com.vhontar.anynotes.presentation.TestBaseApplication
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.FlowPreview

@@ -5,7 +5,7 @@ import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.data.util.safeCacheCall
 import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.state.*
-import com.vhontar.anynotes.framework.presentation.notelist.state.NoteListViewState
+import com.vhontar.anynotes.presentation.notelist.state.NoteListViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

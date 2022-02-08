@@ -7,7 +7,6 @@ import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.data.cache.implementation.NoteCacheDataSourceImpl
 import com.vhontar.anynotes.business.data.network.abstraction.NoteNetworkDataSource
 import com.vhontar.anynotes.business.data.network.implementation.NoteNetworkDataSourceImpl
-import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.model.NoteFactory
 import com.vhontar.anynotes.business.usecases.common.DeleteNoteUseCase
 import com.vhontar.anynotes.business.usecases.notedetail.NoteDetailUseCases
@@ -15,12 +14,12 @@ import com.vhontar.anynotes.business.usecases.notedetail.UpdateNoteUseCase
 import com.vhontar.anynotes.business.usecases.notelist.*
 import com.vhontar.anynotes.business.usecases.splash.SyncDeletedNotesUseCase
 import com.vhontar.anynotes.business.usecases.splash.SyncNotesUseCase
-import com.vhontar.anynotes.framework.datasource.cache.abstraction.NoteDaoService
-import com.vhontar.anynotes.framework.datasource.cache.database.NoteDao
-import com.vhontar.anynotes.framework.datasource.cache.database.NoteDatabase
-import com.vhontar.anynotes.framework.datasource.cache.implemetation.NoteDaoServiceImpl
-import com.vhontar.anynotes.framework.datasource.network.abstraction.NoteFirestoreService
-import com.vhontar.anynotes.framework.datasource.network.implementation.NoteFirestoreServiceImpl
+import com.vhontar.anynotes.datasource.cache.abstraction.NoteDaoService
+import com.vhontar.anynotes.datasource.cache.database.NoteDao
+import com.vhontar.anynotes.datasource.cache.database.NoteDatabase
+import com.vhontar.anynotes.datasource.cache.implemetation.NoteDaoServiceImpl
+import com.vhontar.anynotes.datasource.network.abstraction.NoteFirestoreService
+import com.vhontar.anynotes.datasource.network.implementation.NoteFirestoreServiceImpl
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.FlowPreview
@@ -29,7 +28,6 @@ import javax.inject.Singleton
 @FlowPreview
 @Module
 object AppModule {
-    @JvmStatic
     @Singleton
     @Provides
     fun provideSharedPrefsEditor(
@@ -38,21 +36,18 @@ object AppModule {
         return sharedPreferences.edit()
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteDAO(noteDatabase: NoteDatabase): NoteDao {
         return noteDatabase.noteDao()
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteDaoService(
@@ -61,7 +56,6 @@ object AppModule {
         return NoteDaoServiceImpl(noteDao)
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteCacheDataSource(
@@ -70,7 +64,6 @@ object AppModule {
         return NoteCacheDataSourceImpl(noteDaoService)
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideFirestoreService(
@@ -83,7 +76,6 @@ object AppModule {
         )
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteNetworkDataSource(
@@ -94,7 +86,6 @@ object AppModule {
         )
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideSyncNotesUseCase(
@@ -107,7 +98,6 @@ object AppModule {
         )
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideSyncDeletedNotesUseCase(
@@ -120,7 +110,6 @@ object AppModule {
         )
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteDetailUseCases(
@@ -133,7 +122,6 @@ object AppModule {
         )
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteListUseCases(

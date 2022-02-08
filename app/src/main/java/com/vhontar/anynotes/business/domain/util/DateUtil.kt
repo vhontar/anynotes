@@ -18,7 +18,8 @@ object DateUtil {
     }
 
     fun convertStringDateToFirebaseTimestamp(sd: String): Timestamp {
-        return Timestamp(dateFormat.parse(sd))
+        val date: Date = try { dateFormat.parse(sd) ?: Date() } catch (e: Throwable) { Date() }
+        return Timestamp(date)
     }
 
     fun getCurrentTimestamp(): String {

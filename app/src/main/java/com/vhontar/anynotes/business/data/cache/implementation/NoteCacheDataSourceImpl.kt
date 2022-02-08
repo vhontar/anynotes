@@ -2,7 +2,7 @@ package com.vhontar.anynotes.business.data.cache.implementation
 
 import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.domain.model.Note
-import com.vhontar.anynotes.framework.datasource.cache.abstraction.NoteDaoService
+import com.vhontar.anynotes.datasource.cache.abstraction.NoteDaoService
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,10 +13,10 @@ class NoteCacheDataSourceImpl @Inject constructor(
     override suspend fun insertNote(note: Note): Long = noteDaoService.insertNote(note)
     override suspend fun deleteNote(primaryKey: String): Int = noteDaoService.deleteNote(primaryKey)
     override suspend fun deleteNotes(notes: List<Note>): Int = noteDaoService.deleteNotes(notes)
-    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String?, timestamp: String?): Long =
+    override suspend fun updateNote(primaryKey: String, newTitle: String, newBody: String?, timestamp: String?): Int =
         noteDaoService.updateNote(primaryKey, newTitle, newBody, timestamp)
     override suspend fun searchNotes(query: String, filterAndOrder: String, page: Int): List<Note> =
-        TODO("finish search")
+        noteDaoService.returnOrderedQuery(query, filterAndOrder, page)
     override suspend fun searchNoteById(primaryKey: String): Note? = noteDaoService.searchNoteById(primaryKey)
     override suspend fun getNumNotes(): Int = noteDaoService.getNumNotes()
     override suspend fun insertNotes(notes: List<Note>): LongArray = noteDaoService.insertNotes(notes)

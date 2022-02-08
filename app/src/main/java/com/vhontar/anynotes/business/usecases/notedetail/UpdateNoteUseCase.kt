@@ -7,7 +7,7 @@ import com.vhontar.anynotes.business.data.util.safeCacheCall
 import com.vhontar.anynotes.business.data.util.safeNetworkCall
 import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.state.*
-import com.vhontar.anynotes.framework.presentation.notedetail.state.NoteDetailViewState
+import com.vhontar.anynotes.presentation.notedetail.state.NoteDetailViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,11 +30,11 @@ class UpdateNoteUseCase(
             )
         }
 
-        val handledCacheResult = object : CacheResultHandler<NoteDetailViewState, Long>(
+        val handledCacheResult = object : CacheResultHandler<NoteDetailViewState, Int>(
             result = cacheResult,
             stateEvent = stateEvent
         ) {
-            override fun handleResponse(responseObj: Long): DataState<NoteDetailViewState>? {
+            override fun handleResponse(responseObj: Int): DataState<NoteDetailViewState>? {
                 return if (responseObj < 0) {
                     DataState.data(
                         response = Response(

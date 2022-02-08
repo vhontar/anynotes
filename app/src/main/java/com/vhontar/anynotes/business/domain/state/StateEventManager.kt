@@ -1,6 +1,7 @@
+package com.vhontar.anynotes.business.domain.state
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.vhontar.anynotes.business.domain.state.StateEvent
 
 /**
  * - Keeps track of active StateEvents in DataChannelManager

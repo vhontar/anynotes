@@ -7,12 +7,14 @@ import dependencies.SupportDependencies
 import dependencies.AndroidTestDependencies
 import dependencies.AnnotationProcessing
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: "org.jetbrains.kotlin.plugin.parcelize"
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
 
 
 android {
@@ -84,9 +86,16 @@ dependencies {
     implementation SupportDependencies.INSTANCE.swipe_refresh_layout
 
     // Room library
-    implementation Dependencies.INSTANCE.room_ktx
-    implementation Dependencies.INSTANCE.room_runtime
-    annotationProcessor AnnotationProcessing.INSTANCE.room_compiler
+    implementation (Dependencies.INSTANCE.room_ktx) {
+        exclude(group:'org.xerial')
+    }
+    implementation (Dependencies.INSTANCE.room_runtime) {
+        exclude(group:'org.xerial')
+    }
+    kapt (AnnotationProcessing.INSTANCE.room_compiler) {
+        exclude(group:'org.xerial')
+    }
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
 
     // Firebase
     implementation platform(Dependencies.INSTANCE.firebase_bom)

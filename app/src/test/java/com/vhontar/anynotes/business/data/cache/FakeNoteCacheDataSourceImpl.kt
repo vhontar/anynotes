@@ -3,7 +3,7 @@ package com.vhontar.anynotes.business.data.cache
 import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.domain.model.Note
 import com.vhontar.anynotes.business.domain.util.DateUtil
-import com.vhontar.anynotes.framework.datasource.cache.database.NOTE_PAGINATION_PAGE_SIZE
+import com.vhontar.anynotes.datasource.cache.database.NOTE_PAGINATION_PAGE_SIZE
 
 const val FORCE_DELETE_NOTE_EXCEPTION = "FORCE_DELETE_NOTE_EXCEPTION"
 const val FORCE_DELETES_NOTE_EXCEPTION = "FORCE_DELETES_NOTE_EXCEPTION"
@@ -53,7 +53,7 @@ class FakeNoteCacheDataSourceImpl constructor(
         newTitle: String,
         newBody: String?,
         timestamp: String?
-    ): Long {
+    ): Int {
         if (primaryKey == FORCE_UPDATE_NOTE_EXCEPTION) {
             throw Exception("Something went wrong updating the note.")
         }
@@ -95,8 +95,8 @@ class FakeNoteCacheDataSourceImpl constructor(
         return results
     }
 
-    override suspend fun searchNoteById(id: String): Note? {
-        return notesData[id]
+    override suspend fun searchNoteById(primaryKey: String): Note? {
+        return notesData[primaryKey]
     }
 
     override suspend fun getNumNotes(): Int {

@@ -1,10 +1,13 @@
 package com.vhontar.anynotes.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vhontar.anynotes.framework.datasource.cache.database.DATABASE_NAME
-import com.vhontar.anynotes.framework.datasource.cache.database.NoteDatabase
-import com.vhontar.anynotes.framework.presentation.BaseApplication
+import com.vhontar.anynotes.datasource.cache.database.DATABASE_NAME
+import com.vhontar.anynotes.datasource.cache.database.NoteDatabase
+import com.vhontar.anynotes.datasource.preferences.PreferenceKeys
+import com.vhontar.anynotes.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.FlowPreview
@@ -13,7 +16,6 @@ import javax.inject.Singleton
 @FlowPreview
 @Module
 object ProductionModule {
-    @JvmStatic
     @Singleton
     @Provides
     fun provideNoteDb(app: BaseApplication): NoteDatabase {
@@ -23,10 +25,21 @@ object ProductionModule {
             .build()
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(
+        application: BaseApplication
+    ): SharedPreferences {
+        return application
+            .getSharedPreferences(
+                PreferenceKeys.NOTE_PREFERENCES,
+                Context.MODE_PRIVATE
+            )
     }
 }

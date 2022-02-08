@@ -1,6 +1,5 @@
 package com.vhontar.anynotes.business.domain.state
 
-import StateEventManager
 import com.vhontar.anynotes.util.printLogD
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @FlowPreview
-@ExperimentalCoroutinesApi
 abstract class DataChannelManager<ViewState> {
 
     private var channelScope: CoroutineScope? = null

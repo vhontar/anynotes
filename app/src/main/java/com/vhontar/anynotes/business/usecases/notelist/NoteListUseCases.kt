@@ -1,7 +1,7 @@
 package com.vhontar.anynotes.business.usecases.notelist
 
 import com.vhontar.anynotes.business.usecases.common.DeleteNoteUseCase
-import com.vhontar.anynotes.framework.presentation.notelist.state.NoteListViewState
+import com.vhontar.anynotes.presentation.notelist.state.NoteListViewState
 
 class NoteListUseCases(
     val insertNoteUseCase: InsertNoteUseCase,

@@ -1,18 +1,22 @@
 import dependencies.Versions
 import dependencies.Build
 
+apply plugin: "com.github.ben-manes.versions"
+
 buildscript {
     ext.kotlin_version = Versions.INSTANCE.kotlin
 
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
         classpath Build.INSTANCE.build_tools
         classpath Build.INSTANCE.kotlin_gradle_plugin
         classpath Build.INSTANCE.google_services
         classpath Build.INSTANCE.crashlytics_gradle
+        classpath Build.INSTANCE.gradle_versions_plugin
     }
 }
 
@@ -20,6 +24,26 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+tasks.named("dependencyUpdates").configure {
+    checkForGradleUpdate = true
+    resolutionStrategy {
+        componentSelection {
+            all {
+                if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
+                    reject('Release candidate')
+                }
+            }
+        }
     }
 }
 

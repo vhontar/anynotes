@@ -28,7 +28,7 @@ suspend fun <T> safeNetworkCall(
                 NetworkResult.Success(apiCall.invoke())
             }
         } catch (throwable: Throwable) {
-            sendCrashlytics(throwable.message)
+            // sendCrashlytics(throwable.message)
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {
@@ -68,7 +68,7 @@ suspend fun <T> safeCacheCall(
                 CacheResult.Success(cacheCall.invoke())
             }
         } catch (throwable: Throwable) {
-            sendCrashlytics(throwable.message)
+            // sendCrashlytics(throwable.message)
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {

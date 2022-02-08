@@ -7,7 +7,7 @@ import com.vhontar.anynotes.business.data.cache.abstraction.NoteCacheDataSource
 import com.vhontar.anynotes.business.data.network.abstraction.NoteNetworkDataSource
 import com.vhontar.anynotes.business.domain.model.NoteFactory
 import com.vhontar.anynotes.di.DependenciesContainer
-import com.vhontar.anynotes.framework.presentation.notelist.state.NoteListStateEvent
+import com.vhontar.anynotes.presentation.notelist.state.NoteListStateEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*

@@ -2,7 +2,7 @@ package com.vhontar.anynotes.business.data.network.implementation
 
 import com.vhontar.anynotes.business.data.network.abstraction.NoteNetworkDataSource
 import com.vhontar.anynotes.business.domain.model.Note
-import com.vhontar.anynotes.framework.datasource.network.abstraction.NoteFirestoreService
+import com.vhontar.anynotes.datasource.network.abstraction.NoteFirestoreService
 import javax.inject.Inject
 import javax.inject.Singleton
 
